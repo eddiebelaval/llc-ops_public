@@ -5,8 +5,8 @@ A complete development operating system built on Claude Code. Automates your dai
 ## Quick Start
 
 ```bash
-git clone https://github.com/eddiebelaval/claude-code-os.git
-cd claude-code-os
+git clone https://github.com/eddiebelaval/llc-ops_public.git
+cd llc-ops_public
 ```
 
 Then open in Claude Code and run:
