@@ -1,0 +1,34 @@
+{
+  "executive": "Proptech VC Partner, $500M Series A/B Fund",
+  "overall_grade": "CCC",
+  "confidence": 0.82,
+  "key_insight": "The thesis is correct that agents are translators and AI absorbs translation — but the 93% of consumers who use agents aren't paying for translation, they're paying for accountability, and no one has solved how to make an AI accountable when a $400K transaction goes sideways.",
+  "rubric_highlights": {
+    "market_fit": "BB",
+    "consumer_value": "A",
+    "liability_compliance": "CCC",
+    "competitive_moat": "CC",
+    "revenue_model": "BBB"
+  },
+  "critical_weaknesses": [
+    "CRITICAL: Zero transactions = zero validation",
+    "CRITICAL: No legal infrastructure (attorney, E&O, compliance)",
+    "CRITICAL: No MLS access",
+    "HIGH: Solo founder risk in trust-dependent business",
+    "HIGH: Consumer trust gap for six-figure transactions",
+    "HIGH: Unit economics unproven and potentially inverted"
+  ],
+  "deal_breakers": [
+    "Zero completed transactions",
+    "No legal infrastructure",
+    "No MLS access",
+    "Solo founder with no RE industry experience on team"
+  ],
+  "killer_features": [
+    "Plain-language FAR/BAR translation with consequences",
+    "Negotiation intelligence with comp data transparency",
+    "Deadline tracker with plain-language consequences",
+    "Consumer preview endpoint (zero-friction top of funnel)"
+  ],
+  "investment_verdict": "Not investable at this stage. Come back with 25 completed transactions, positive unit economics, an attorney on the team, and MLS access secured."
+}

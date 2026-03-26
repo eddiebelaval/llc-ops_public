@@ -1,0 +1,1400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DeepStack Round 1 Assessment -- D Rating</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Geist+Mono&display=swap');
+
+  :root {
+    --bg: #020202;
+    --surface: #0a0a0a;
+    --surface-2: #111111;
+    --surface-3: #1a1a1a;
+    --border: #222222;
+    --text: #eeeeee;
+    --text-dim: #888888;
+    --text-muted: #555555;
+    --orange: #ef6f2e;
+    --amber: #f59e0b;
+    --teal: #4ecdc4;
+    --red: #ef4444;
+    --purple: #9333ea;
+    --green: #22c55e;
+    --font: 'Geist', system-ui, -apple-system, sans-serif;
+    --mono: 'Geist Mono', 'SF Mono', 'Fira Code', monospace;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font);
+    font-size: 14px;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  .header {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 20px 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .header-left h1 {
+    font-size: 18px;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    color: var(--text);
+  }
+
+  .header-left .subtitle {
+    font-size: 12px;
+    color: var(--text-dim);
+    font-family: var(--mono);
+    margin-top: 4px;
+  }
+
+  .header-right {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .rating-badge {
+    font-size: 36px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: var(--red);
+    animation: pulse-red 2s ease-in-out infinite;
+    text-shadow: 0 0 20px rgba(239, 68, 68, 0.5);
+  }
+
+  @keyframes pulse-red {
+    0%, 100% { text-shadow: 0 0 20px rgba(239, 68, 68, 0.3); }
+    50% { text-shadow: 0 0 40px rgba(239, 68, 68, 0.7), 0 0 60px rgba(239, 68, 68, 0.3); }
+  }
+
+  .rating-label {
+    font-size: 11px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-align: right;
+  }
+
+  .tabs {
+    display: flex;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .tabs::-webkit-scrollbar { display: none; }
+
+  .tab {
+    padding: 12px 20px;
+    font-size: 12px;
+    font-family: var(--mono);
+    color: var(--text-dim);
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    white-space: nowrap;
+    transition: all 0.2s;
+    background: none;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+  }
+
+  .tab:hover { color: var(--text); }
+  .tab.active { color: var(--orange); border-bottom-color: var(--orange); }
+
+  .content { padding: 32px; max-width: 1200px; margin: 0 auto; }
+  .panel { display: none; }
+  .panel.active { display: block; }
+
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 24px 0; }
+  .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin: 24px 0; }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 20px;
+  }
+
+  .card-header {
+    font-size: 11px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+  }
+
+  .card-value {
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+
+  .card-detail {
+    font-size: 12px;
+    color: var(--text-dim);
+    margin-top: 4px;
+  }
+
+  .expert-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 20px;
+  }
+
+  .expert-name {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+
+  .expert-role {
+    font-size: 12px;
+    color: var(--text-dim);
+    margin-bottom: 12px;
+  }
+
+  .expert-rating {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+
+  .expert-grade {
+    font-size: 12px;
+    color: var(--text-dim);
+  }
+
+  h2 {
+    font-size: 16px;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    margin: 32px 0 16px;
+    color: var(--text);
+  }
+
+  h2:first-child { margin-top: 0; }
+
+  h3 {
+    font-size: 14px;
+    font-weight: 600;
+    margin: 24px 0 12px;
+    color: var(--text);
+  }
+
+  .severity-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .severity-critical { background: rgba(239,68,68,0.15); color: var(--red); border: 1px solid rgba(239,68,68,0.3); }
+  .severity-high { background: rgba(239,111,46,0.15); color: var(--orange); border: 1px solid rgba(239,111,46,0.3); }
+  .severity-medium { background: rgba(245,158,11,0.15); color: var(--amber); border: 1px solid rgba(245,158,11,0.3); }
+  .severity-low { background: rgba(78,205,196,0.15); color: var(--teal); border: 1px solid rgba(78,205,196,0.3); }
+
+  .tier-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+  }
+
+  .tier-r1 { background: rgba(78,205,196,0.1); color: var(--teal); border: 1px solid rgba(78,205,196,0.2); }
+  .tier-r2 { background: rgba(245,158,11,0.1); color: var(--amber); border: 1px solid rgba(245,158,11,0.2); }
+  .tier-r3 { background: rgba(239,68,68,0.1); color: var(--red); border: 1px solid rgba(239,68,68,0.2); }
+  .tier-r4 { background: rgba(147,51,234,0.1); color: var(--purple); border: 1px solid rgba(147,51,234,0.2); }
+
+  .concern-block {
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px;
+    margin: 12px 0;
+  }
+
+  .concern-title {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .concern-body {
+    font-size: 13px;
+    color: var(--text-dim);
+    line-height: 1.7;
+  }
+
+  .concern-body strong { color: var(--text); }
+
+  .quant-basis {
+    margin-top: 8px;
+    padding: 8px 12px;
+    background: var(--surface-3);
+    border-radius: 4px;
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--text-dim);
+  }
+
+  .recommendation {
+    padding: 12px 16px;
+    margin: 8px 0;
+    border-left: 3px solid var(--border);
+    background: var(--surface-2);
+    border-radius: 0 6px 6px 0;
+  }
+
+  .recommendation.p0 { border-left-color: var(--red); }
+  .recommendation.p1 { border-left-color: var(--orange); }
+  .recommendation.p2 { border-left-color: var(--amber); }
+  .recommendation.p3 { border-left-color: var(--teal); }
+
+  .rec-priority {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+  }
+
+  .rec-priority.p0 { color: var(--red); }
+  .rec-priority.p1 { color: var(--orange); }
+  .rec-priority.p2 { color: var(--amber); }
+  .rec-priority.p3 { color: var(--teal); }
+
+  .rec-text { font-size: 13px; color: var(--text-dim); }
+  .rec-text strong { color: var(--text); }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0;
+    font-size: 13px;
+  }
+
+  th {
+    text-align: left;
+    padding: 10px 12px;
+    background: var(--surface-2);
+    color: var(--text-dim);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text-dim);
+  }
+
+  tr:hover td { background: var(--surface-2); }
+
+  .callout {
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 24px 0;
+  }
+
+  .callout-critical {
+    border-color: rgba(239,68,68,0.3);
+    background: rgba(239,68,68,0.05);
+  }
+
+  .callout-label {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+  }
+
+  .callout-text {
+    font-size: 14px;
+    color: var(--text);
+    line-height: 1.8;
+    font-style: italic;
+  }
+
+  .convergence-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px;
+    margin: 12px 0;
+  }
+
+  .convergence-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+
+  .expert-tag {
+    font-size: 10px;
+    padding: 2px 6px;
+    border-radius: 3px;
+    background: var(--surface-3);
+    color: var(--text-dim);
+    border: 1px solid var(--border);
+  }
+
+  .coverage-status {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 600;
+  }
+
+  .coverage-full { background: rgba(34,197,94,0.15); color: var(--green); }
+  .coverage-partial { background: rgba(245,158,11,0.15); color: var(--amber); }
+  .coverage-missing { background: rgba(239,68,68,0.15); color: var(--red); }
+
+  .stat-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .stat-label { color: var(--text-dim); font-size: 13px; }
+  .stat-value { color: var(--text); font-weight: 600; font-size: 13px; }
+
+  .key-insight {
+    background: linear-gradient(135deg, rgba(239,111,46,0.08), rgba(239,68,68,0.08));
+    border: 1px solid rgba(239,111,46,0.2);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 24px 0;
+  }
+
+  .key-insight p {
+    font-size: 14px;
+    line-height: 1.8;
+    color: var(--text);
+  }
+
+  .progress-bar-bg {
+    height: 6px;
+    background: var(--surface-3);
+    border-radius: 3px;
+    overflow: hidden;
+    margin-top: 8px;
+  }
+
+  .progress-bar-fill {
+    height: 100%;
+    border-radius: 3px;
+    transition: width 0.3s;
+  }
+
+  .checkbox-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 8px 0;
+    font-size: 13px;
+    color: var(--text-dim);
+  }
+
+  .checkbox-item input[type="checkbox"] {
+    margin-top: 3px;
+    accent-color: var(--orange);
+  }
+
+  .footer {
+    text-align: center;
+    padding: 32px;
+    color: var(--text-muted);
+    font-size: 11px;
+    font-family: var(--mono);
+    border-top: 1px solid var(--border);
+    margin-top: 64px;
+  }
+
+  @media (max-width: 768px) {
+    .grid-3 { grid-template-columns: 1fr; }
+    .grid-2 { grid-template-columns: 1fr; }
+    .header { flex-direction: column; gap: 16px; align-items: flex-start; }
+    .content { padding: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-left">
+    <h1>DeepStack Production Readiness Assessment</h1>
+    <div class="subtitle">Round 1 / 2026-03-04 / Webb + Tanaka + Krawczyk / EXP-DEEP-001</div>
+  </div>
+  <div class="header-right">
+    <div>
+      <div class="rating-label">Investment Rating</div>
+      <div class="rating-badge">D</div>
+      <div class="rating-label">Default</div>
+    </div>
+  </div>
+</div>
+
+<div class="tabs">
+  <button class="tab active" onclick="showTab('overview')">Overview</button>
+  <button class="tab" onclick="showTab('webb')">Webb</button>
+  <button class="tab" onclick="showTab('tanaka')">Tanaka</button>
+  <button class="tab" onclick="showTab('krawczyk')">Krawczyk</button>
+  <button class="tab" onclick="showTab('convergence')">Convergence</button>
+  <button class="tab" onclick="showTab('risk')">Risk Matrix</button>
+  <button class="tab" onclick="showTab('methodology')">Methodology</button>
+  <button class="tab" onclick="showTab('assessment')">Assessment</button>
+</div>
+
+<div class="content">
+
+<!-- ===== OVERVIEW TAB ===== -->
+<div class="panel active" id="overview">
+  <h2>Composite Assessment</h2>
+
+  <div class="grid-3">
+    <div class="card">
+      <div class="card-header">Investment Rating</div>
+      <div class="card-value" style="color: var(--red);">D</div>
+      <div class="card-detail">Default -- System failure. Shut down and rebuild.</div>
+    </div>
+    <div class="card">
+      <div class="card-header">Quality Grade</div>
+      <div class="card-value" style="color: var(--red);">D+</div>
+      <div class="card-detail">Median of 3 expert grades</div>
+    </div>
+    <div class="card">
+      <div class="card-header">Confidence</div>
+      <div class="card-value" style="color: var(--amber);">0.85</div>
+      <div class="card-detail">High agreement across all 3 experts</div>
+    </div>
+  </div>
+
+  <div class="grid-3">
+    <div class="expert-card">
+      <div class="expert-name">Dr. Marcus Webb</div>
+      <div class="expert-role">Quantitative Analyst, PhD Financial Mathematics</div>
+      <div class="expert-rating" style="color: var(--red);">CCC</div>
+      <div class="expert-grade">Grade: C+ / Confidence: 0.87</div>
+      <div style="margin-top: 12px; font-size: 12px; color: var(--text-dim);">
+        "This system is a well-engineered answer to a question that has not been asked."
+      </div>
+    </div>
+    <div class="expert-card">
+      <div class="expert-name">Dr. Reina Tanaka</div>
+      <div class="expert-role">Risk Management Director, ex-Goldman</div>
+      <div class="expert-rating" style="color: var(--red);">CCC-</div>
+      <div class="expert-grade">Grade: D+ / Confidence: 0.92</div>
+      <div style="margin-top: 12px; font-size: 12px; color: var(--text-dim);">
+        "An organism that can diagnose cancer in individual cells but has no immune system to save the body."
+      </div>
+    </div>
+    <div class="expert-card">
+      <div class="expert-name">Victor Krawczyk</div>
+      <div class="expert-role">Algorithmic Trading Strategist, 20yr quant</div>
+      <div class="expert-rating" style="color: var(--red);">D</div>
+      <div class="expert-grade">Grade: D+ / Confidence: 0.92</div>
+      <div style="margin-top: 12px; font-size: 12px; color: var(--text-dim);">
+        "A Formula 1 chassis with no engine."
+      </div>
+    </div>
+  </div>
+
+  <h2>Expert Selection Rationale</h2>
+  <div class="card" style="margin-bottom: 24px;">
+    <div class="concern-body">
+      <strong>Webb</strong> covers signal quality and EV mathematics -- is the edge real?
+      <strong>Tanaka</strong> covers risk management and capital protection -- did circuit breakers fail?
+      <strong>Krawczyk</strong> covers strategy validation and backtesting -- are the backtests trustworthy?
+      These three maximize coverage for the three most critical questions. All other questions flow from these three.
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-header">Concerns by Severity</div>
+      <div class="stat-row">
+        <span class="stat-label"><span class="severity-badge severity-critical">Critical</span></span>
+        <span class="stat-value">6</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-label"><span class="severity-badge severity-high">High</span></span>
+        <span class="stat-value">7</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-label"><span class="severity-badge severity-medium">Medium</span></span>
+        <span class="stat-value">6</span>
+      </div>
+      <div class="stat-row" style="border: none;">
+        <span class="stat-label">Total Concerns</span>
+        <span class="stat-value">19</span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header">Key Metrics</div>
+      <div class="stat-row">
+        <span class="stat-label">Account Balance</span>
+        <span class="stat-value" style="color: var(--red);">$152</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-label">Capital Loss</span>
+        <span class="stat-value" style="color: var(--red);">-$348 (70%)</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-label">Total Trades</span>
+        <span class="stat-value">44 closed</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-label">Win Rate (observed)</span>
+        <span class="stat-value" style="color: var(--red);">20.5% (9/44)</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-label">Methodology Coverage</span>
+        <span class="stat-value" style="color: var(--red);">25%</span>
+      </div>
+      <div class="stat-row" style="border: none;">
+        <span class="stat-label">P(Ruin in 30 days)</span>
+        <span class="stat-value" style="color: var(--red);">75-90%</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout callout-critical">
+    <div class="callout-label" style="color: var(--red);">Critical Test</div>
+    <div class="callout-text">"If you put significant capital behind this system and walked away for a month -- would you come back to more money or less?"</div>
+    <div style="margin-top: 12px; font-size: 14px; color: var(--text);">
+      <strong>Unanimous: Less. With high confidence (0.85-0.92).</strong>
+    </div>
+    <div style="margin-top: 8px; font-size: 13px; color: var(--text-dim);">
+      All three experts independently concluded the system has no validated positive edge. The Bayesian priors assume 55-60% win rates, but observed performance shows 20.5% aggregate. Transaction costs alone render the primary strategy (mean reversion) structurally unprofitable at any win rate when using market orders. The daily loss limit of $100 on a $152 account means a single bad day destroys two-thirds of remaining capital.
+    </div>
+  </div>
+
+  <h2>Capital Recommendation</h2>
+  <div class="card">
+    <div class="stat-row">
+      <span class="stat-label">Current Account</span>
+      <span class="stat-value">$152</span>
+    </div>
+    <div class="stat-row">
+      <span class="stat-label">Maximum Recommended Allocation</span>
+      <span class="stat-value" style="color: var(--red);">$0 (halt all live trading)</span>
+    </div>
+    <div class="stat-row">
+      <span class="stat-label">Conditions for Re-enabling</span>
+      <span class="stat-value">Validated +EV after costs on 200+ backtest trades</span>
+    </div>
+    <div class="stat-row" style="border: none;">
+      <span class="stat-label">Permanent Halt Trigger</span>
+      <span class="stat-value" style="color: var(--red);">Balance below $50</span>
+    </div>
+  </div>
+</div>
+
+<!-- ===== WEBB TAB ===== -->
+<div class="panel" id="webb">
+  <h2>Dr. Marcus Webb -- Quantitative Analyst</h2>
+  <div style="font-size: 13px; color: var(--text-dim); margin-bottom: 24px;">
+    PhD Financial Mathematics | Kelly criterion, portfolio theory, EV calculations, statistical significance
+  </div>
+  <div class="grid-3">
+    <div class="card">
+      <div class="card-header">Investment Rating</div>
+      <div class="card-value" style="color: var(--red);">CCC</div>
+    </div>
+    <div class="card">
+      <div class="card-header">Quality Grade</div>
+      <div class="card-value" style="color: var(--amber);">C+</div>
+    </div>
+    <div class="card">
+      <div class="card-header">Confidence</div>
+      <div class="card-value">0.87</div>
+    </div>
+  </div>
+
+  <h3>Strengths</h3>
+  <div class="concern-block">
+    <div class="concern-title">Bayesian Learning Architecture</div>
+    <div class="concern-body">The PerformanceTracker implements proper Bayesian conjugate prior blend with exponential time-decay (half-life=30 days). Per-contract P&L normalization is correctly implemented -- Kelly needs per-unit-of-risk statistics.</div>
+    <div class="quant-basis">With k=20 and n=2.65 for mean_reversion, blended win rate = 0.574. Prior dominates at 88.3% weight. Need ~20 more trades (4 months) for equilibrium.</div>
+  </div>
+  <div class="concern-block">
+    <div class="concern-title">Multi-Layer Risk Architecture</div>
+    <div class="concern-body">Defense-in-depth: Kelly sizing with dynamic fractions clamped [0.005, 0.05], daily loss circuit breaker, emotional firewall, per-strategy breakers, governance engine, auto-disable, and correlation cap (max 2 positions per series).</div>
+  </div>
+
+  <h3>Concerns</h3>
+  <div class="concern-block">
+    <div class="concern-title"><span class="severity-badge severity-critical">Critical</span> Unvalidated Win Rate Priors</div>
+    <div class="concern-body">The entire profitability thesis rests on hardcoded win rate assumptions: mean_reversion at 60%, momentum at 55%. <strong>These are not derived from backtesting, historical analysis, or any empirical source.</strong> Actual evidence: 44 trades total, aggregate win rate 20.5% (9/44). The 95% Wilson CI is [10.5%, 34.2%] -- does not contain any prior assumption.</div>
+    <div class="quant-basis">Claimed EV: +2.8c/contract. Real EV at 50% win rate: (0.50*8)-(0.50*5) = +1.5c (illusory -- ignores settlement dynamics). Need 200+ trades of backtest validation.</div>
+  </div>
+  <div class="concern-block">
+    <div class="concern-title"><span class="severity-badge severity-critical">Critical</span> Insufficient Capital for Strategy Count</div>
+    <div class="concern-body">$152 across 4 strategies, $50 max position, $100 daily loss limit (66% of capital). Four strategies at $50 = $200 theoretical exposure, exceeding account by 31.6%. Strategy manager allows 10 positions = $125 exposure (82.2% of capital).</div>
+  </div>
+  <div class="concern-block">
+    <div class="concern-title"><span class="severity-badge severity-high">High</span> Kelly Formula Inconsistency</div>
+    <div class="concern-body">Config says "Half-Kelly of optimal 4.1% at 15% win rate." But Kelly at 15% win rate with 8/5 ratio = <strong>-0.38 (NEGATIVE)</strong>. The 0.02 fraction is actually 1/9th Kelly at 60%, not half-Kelly at 15%. Documentation is mathematically impossible.</div>
+  </div>
+  <div class="concern-block">
+    <div class="concern-title"><span class="severity-badge severity-high">High</span> Mean Reversion Thesis Flawed for Prediction Markets</div>
+    <div class="concern-body">Prediction market prices near 50c represent genuine uncertainty about binary outcomes. Prices go to 0 or 100 at settlement -- there is no "mean" to revert to. The strategy pays spread to bet on short-term noise in the most efficient price zone. Mean_reversion actual record: 1/3 trades (33%), net -$2.23.</div>
+  </div>
+  <div class="concern-block">
+    <div class="concern-title"><span class="severity-badge severity-medium">Medium</span> No Backtesting Validation</div>
+    <div class="concern-body">Backtest runner exists but has only been used for one settlement-focused backtest (which returned 0 trades). No backtest has been run for mean_reversion, momentum, or cross-platform arbitrage against historical Kalshi data.</div>
+  </div>
+
+  <div class="key-insight">
+    <div class="callout-label" style="color: var(--orange);">Key Insight</div>
+    <p>"This system is a well-engineered answer to a question that has not been asked: the architecture assumes an edge exists and provides sophisticated infrastructure to exploit it, but nobody has verified the edge exists. The -70% drawdown is not a bug in risk management -- it is the expected outcome of deploying unvalidated assumptions with real capital."</p>
+  </div>
+</div>
+
+<!-- ===== TANAKA TAB ===== -->
+<div class="panel" id="tanaka">
+  <h2>Dr. Reina Tanaka -- Risk Management Director</h2>
+  <div style="font-size: 13px; color: var(--text-dim); margin-bottom: 24px;">
+    Ex-Goldman Sachs, 14 years systematic risk oversight | VaR, CVaR, stress testing, circuit breaker design
+  </div>
+  <div class="grid-3">
+    <div class="card">
+      <div class="card-header">Investment Rating</div>
+      <div class="card-value" style="color: var(--red);">CCC-</div>
+    </div>
+    <div class="card">
+      <div class="card-header">Quality Grade</div>
+      <div class="card-value" style="color: var(--red);">D+</div>
+    </div>
+    <div class="card">
+      <div class="card-header">Confidence</div>
+      <div class="card-value">0.92</div>
+    </div>
+  </div>
+
+  <h3>Strengths</h3>
+  <div class="concern-block">
+    <div class="concern-title">Bayesian Performance Tracking</div>
+    <div class="concern-body">Proper prior-to-posterior blending with exponential time-decay. Prior strength k=20 is reasonable epistemic humility. Per-contract Kelly normalization is correctly implemented.</div>
+  </div>
+
+  <h3>Concerns</h3>
+  <div class="concern-block">
+    <div class="concern-title"><span class="severity-badge severity-critical">Critical</span> <span class="tier-badge tier-r3">R3: Capital</span> No Portfolio-Level Drawdown Stop</div>
+    <div class="concern-body">Searched entire codebase for portfolio drawdown, min_balance, kill_switch, halt_all. <strong>None exist.</strong> The API circuit breaker is not a financial loss limiter. Per-strategy breakers measure from each strategy's own peak, not account equity. A strategy starting fresh (peak=0) will never trigger the 15% drawdown breaker.</div>
+    <div class="quant-basis">At $152, daily loss limit $100 = 66% capital risk/day. Over 2 days: Day 1 -$100 = $52, Day 2 -$52 = $0. The -70% drawdown was not stopped because no threshold exists.</div>
+  </div>
+  <div class="concern-block">
+    <div class="concern-title"><span class="severity-badge severity-high">High</span> <span class="tier-badge tier-r3">R3: Capital</span> Daily Loss Limit Not Balance-Proportional</div>
+    <div class="concern-body">Hardcoded $100 was set at $500 (20% daily risk). At $152, it's 66% daily risk. <strong>Industry standard: 1-3%. Even aggressive HFT caps at 5-10%. This is 13-66x the professional standard.</strong></div>
+  </div>
+  <div class="concern-block">
+    <div class="concern-title"><span class="severity-badge severity-high">High</span> <span class="tier-badge tier-r3">R3: Capital</span> Max Position Size 33% of Capital</div>
+    <div class="concern-body">$50 max on $152 = 32.9% per trade. Three losing trades at $38 each = $114 = 75% of account. Risk of Ruin with 33% sizing at 55% win rate: estimated 85-95%. Professional systems: 1-2% per trade.</div>
+  </div>
+  <div class="concern-block">
+    <div class="concern-title"><span class="severity-badge severity-high">High</span> <span class="tier-badge tier-r2">R2: Execution</span> API Circuit Breaker Misnamed</div>
+    <div class="concern-body">circuit_breaker.py is an API availability pattern (Nygard), not financial protection. Zero financial awareness. Consciousness files reference "circuit breakers" as if they protect against financial loss. Financial "circuit breakers" in main.py are in-memory dicts that <strong>reset on every bot restart</strong>.</div>
+  </div>
+  <div class="concern-block">
+    <div class="concern-title"><span class="severity-badge severity-medium">Medium</span> Revenge Trading Check Disabled</div>
+    <div class="concern-body">Comment says "bot doesn't revenge-trade, it has Kelly." But auto-reenable after 6hr cooldown IS revenge trading: re-enters with same parameters that caused losses. Bayesian blend at k=20 still shows ~52% after 5 losses.</div>
+  </div>
+  <div class="concern-block">
+    <div class="concern-title"><span class="severity-badge severity-medium">Medium</span> Quality Filters Deliberately Weakened</div>
+    <div class="concern-body">min_volume 100->50, min_score 30->20, min_liquidity 50->25, min_match_score 0.6->0.45, min_polymarket_volume 10000->2000. Comments: "was eliminating 90% of markets." <strong>That filtering was the point.</strong></div>
+  </div>
+
+  <div class="key-insight">
+    <div class="callout-label" style="color: var(--orange);">Key Insight</div>
+    <p>"The system has excellent strategy-level intelligence but no portfolio-level survival instinct. It knows how to evaluate whether a strategy is working, but not whether the account is dying. It is an organism that can diagnose cancer in individual cells but has no immune system to save the body."</p>
+  </div>
+</div>
+
+<!-- ===== KRAWCZYK TAB ===== -->
+<div class="panel" id="krawczyk">
+  <h2>Victor Krawczyk -- Algorithmic Trading Strategist</h2>
+  <div style="font-size: 13px; color: var(--text-dim); margin-bottom: 24px;">
+    20-year quant veteran | Walk-forward analysis, overfitting detection, strategy lifecycle, Monte Carlo
+  </div>
+  <div class="grid-3">
+    <div class="card">
+      <div class="card-header">Investment Rating</div>
+      <div class="card-value" style="color: var(--red);">D</div>
+    </div>
+    <div class="card">
+      <div class="card-header">Quality Grade</div>
+      <div class="card-value" style="color: var(--red);">D+</div>
+    </div>
+    <div class="card">
+      <div class="card-header">Confidence</div>
+      <div class="card-value">0.92</div>
+    </div>
+  </div>
+
+  <h3>Strengths</h3>
+  <div class="concern-block">
+    <div class="concern-title">Infrastructure Quality</div>
+    <div class="concern-body">Clean abstractions, real Bayesian tracking, regime detection, Claude analysis layer, backtest runner. 22 Python modules, 15 strategy files, governance engine with 5 regime classifications.</div>
+  </div>
+
+  <h3>Concerns</h3>
+  <div class="concern-block">
+    <div class="concern-title"><span class="severity-badge severity-critical">Critical</span> <span class="tier-badge tier-r1">R1: Signal</span> No Evidence of Edge</div>
+    <div class="concern-body">Code comments: "Priors encode designed edge" and "Neutral priors (50/6/6) cause Kelly=0 cold-start death spiral." <strong>The system NEEDS to believe in positive edge to function, so positive edge was assumed rather than demonstrated.</strong> Live data: mean_reversion 33% win rate (3 trades), market_making 15.4% (39 trades).</div>
+  </div>
+  <div class="concern-block">
+    <div class="concern-title"><span class="severity-badge severity-critical">Critical</span> <span class="tier-badge tier-r1">R1: Signal</span> Fee Erosion Renders Strategies Unprofitable</div>
+    <div class="concern-body">Kalshi charges 7c/contract market orders, 2c limit orders. Mean reversion (8c TP, 5c SL) with market orders: <strong>EV = (0.60 * (8-14)) + (0.40 * (-5-14)) = -11.2c per trade. Negative at ANY win rate.</strong> With limit orders: break-even requires 69% win rate (vs 33% observed, 60% assumed).</div>
+    <div class="quant-basis">Market orders: Win = 8c - 14c fees = -6c. Loss = -5c - 14c fees = -19c. Even at 100% win rate: EV = -6c. Limit orders: Win = 8c - 4c = +4c. Loss = -5c - 4c = -9c. Break-even = 9/(4+9) = 69.2%.</div>
+  </div>
+  <div class="concern-block">
+    <div class="concern-title"><span class="severity-badge severity-critical">Critical</span> <span class="tier-badge tier-r1">R1: Signal</span> Catastrophic Market Making Loss Pattern</div>
+    <div class="concern-body">39 trades: 32 settled NO (-$113.13), 5 settled YES (+$132.30). This is not market making -- it is unhedged directional lottery betting. Strategy name was misleading. Net +$16.41 but entirely dependent on 2 trades; remove them and it's -$38.47.</div>
+  </div>
+  <div class="concern-block">
+    <div class="concern-title"><span class="severity-badge severity-high">High</span> <span class="tier-badge tier-r1">R1: Signal</span> Threshold-Loosening Is Curve-Fitting</div>
+    <div class="concern-body">7 distinct threshold reductions documented in config comments. Momentum min_volume reduced 75% (200->50). Polymarket volume reduced 80% (10000->2000). <strong>When a strategy can't find trades at reasonable thresholds, the correct conclusion is that the edge does not exist at sufficient scale.</strong></div>
+  </div>
+  <div class="concern-block">
+    <div class="concern-title"><span class="severity-badge severity-high">High</span> <span class="tier-badge tier-r2">R2: Execution</span> Momentum: 5-Sample Lookback Is Noise</div>
+    <div class="concern-body">5 samples at ~90s intervals = 7.5 minutes lookback. 3% move on 50c contract = 1.5c, inside typical 2-5c spread. Signal-to-noise ratio: 0.3-0.75x (need 2.0x minimum). Price history in-memory, resets on restart.</div>
+  </div>
+  <div class="concern-block">
+    <div class="concern-title"><span class="severity-badge severity-medium">Medium</span> Combinatorial Arb: No Atomic Execution</div>
+    <div class="concern-body">900+ lines of code, 0 trades. Requires all legs to fill for guaranteed profit. No atomic execution mechanism -- legs execute sequentially, creating partial-fill risk. A 2c "guaranteed profit" evaporates with a single partial fill. 149,000+ governance decisions enabling a strategy that never trades.</div>
+  </div>
+
+  <div class="key-insight">
+    <div class="callout-label" style="color: var(--orange);">Key Insight</div>
+    <p>"This is a system with professional-grade infrastructure wrapped around zero demonstrated edge -- a Formula 1 chassis with no engine. The 70% drawdown is not a 'drawdown' -- it is the expected outcome of trading random strategies with positive-edge assumptions on thin, illiquid markets after transaction costs."</p>
+  </div>
+</div>
+
+<!-- ===== CONVERGENCE TAB ===== -->
+<div class="panel" id="convergence">
+  <h2>Three-Way Convergence (Highest Confidence)</h2>
+
+  <div class="convergence-card">
+    <div class="convergence-header">
+      <span class="severity-badge severity-critical">Critical</span>
+      <span class="expert-tag">Webb</span>
+      <span class="expert-tag">Tanaka</span>
+      <span class="expert-tag">Krawczyk</span>
+    </div>
+    <div style="font-weight: 600; margin-bottom: 8px;">No Validated Edge on Any Strategy</div>
+    <div class="concern-body">All three experts independently concluded that hardcoded win rate priors (55-60%) have no empirical basis. Actual observed win rates: 20.5% aggregate, 33% mean_reversion, 15.4% market_making. The system deployed real capital based on assumptions, not evidence.</div>
+  </div>
+
+  <div class="convergence-card">
+    <div class="convergence-header">
+      <span class="severity-badge severity-critical">Critical</span>
+      <span class="expert-tag">Webb</span>
+      <span class="expert-tag">Tanaka</span>
+      <span class="expert-tag">Krawczyk</span>
+    </div>
+    <div style="font-weight: 600; margin-bottom: 8px;">Position Sizing Catastrophically Miscalibrated</div>
+    <div class="concern-body">$100 daily loss limit = 66% of $152 capital. $50 max position = 33% of capital. Industry standard: 1-3% daily, 1-2% per trade. Parameters were set for $500 and never adjusted after 70% drawdown. All three experts rated this as existential risk.</div>
+  </div>
+
+  <div class="convergence-card">
+    <div class="convergence-header">
+      <span class="severity-badge severity-critical">Critical</span>
+      <span class="expert-tag">Webb</span>
+      <span class="expert-tag">Tanaka</span>
+      <span class="expert-tag">Krawczyk</span>
+    </div>
+    <div style="font-weight: 600; margin-bottom: 8px;">Backtests Never Run on Active Strategies</div>
+    <div class="concern-body">The backtest runner infrastructure exists but has only been used once (settlement backtest, 0 trades returned). Mean reversion, momentum, and cross-platform arbitrage went live without any backtest validation against real Kalshi data.</div>
+  </div>
+
+  <div class="convergence-card">
+    <div class="convergence-header">
+      <span class="severity-badge severity-critical">Critical</span>
+      <span class="expert-tag">Webb</span>
+      <span class="expert-tag">Tanaka</span>
+      <span class="expert-tag">Krawczyk</span>
+    </div>
+    <div style="font-weight: 600; margin-bottom: 8px;">-70% Drawdown Was the Expected Outcome</div>
+    <div class="concern-body">This was not a bug or edge case. All three experts agree the drawdown was the predictable result of deploying unvalidated assumptions with real capital on thin markets after transaction costs. The system worked exactly as designed -- the design itself was flawed.</div>
+  </div>
+
+  <h2>Two-Way Convergence</h2>
+
+  <div class="convergence-card">
+    <div class="convergence-header">
+      <span class="severity-badge severity-high">High</span>
+      <span class="expert-tag">Webb</span>
+      <span class="expert-tag">Krawczyk</span>
+    </div>
+    <div style="font-weight: 600; margin-bottom: 8px;">Kelly Documentation Is Mathematically Wrong</div>
+    <div class="concern-body">Both independently verified: Kelly at 15% win rate with 1.6:1 R:R = -0.38 (NEGATIVE). The config comment "Half-Kelly of optimal 4.1% at 15% win rate" is mathematically impossible. The actual 0.02 fraction is ~1/9th Kelly at 60% win rate.</div>
+  </div>
+
+  <div class="convergence-card">
+    <div class="convergence-header">
+      <span class="severity-badge severity-high">High</span>
+      <span class="expert-tag">Tanaka</span>
+      <span class="expert-tag">Krawczyk</span>
+    </div>
+    <div style="font-weight: 600; margin-bottom: 8px;">Quality Filters Systematically Loosened</div>
+    <div class="concern-body">7 threshold reductions documented. Both experts agree: when strategies can't find trades at reasonable thresholds, the answer is not to lower the bar -- it's to not trade. The system's own values state "Edge over volume" but the config contradicts this.</div>
+  </div>
+
+  <div class="convergence-card">
+    <div class="convergence-header">
+      <span class="severity-badge severity-high">High</span>
+      <span class="expert-tag">Webb</span>
+      <span class="expert-tag">Tanaka</span>
+    </div>
+    <div style="font-weight: 600; margin-bottom: 8px;">Bayesian Priors Mask Failure for Too Long</div>
+    <div class="concern-body">Prior_strength=20 means the system needs ~40-60 losing trades before recognizing negative EV. At current trade frequency (5 trades in 3 weeks), this takes 4-6 months. The system is structurally unable to recognize its own failure in time to preserve capital.</div>
+  </div>
+
+  <h2>Key Divergence</h2>
+  <div class="convergence-card" style="border-color: rgba(245,158,11,0.3);">
+    <div class="convergence-header">
+      <span class="severity-badge severity-medium">Divergence</span>
+    </div>
+    <div style="font-weight: 600; margin-bottom: 8px;">Rating Spread: CCC to D</div>
+    <div class="concern-body">
+      <strong>Webb (CCC):</strong> Sees the Bayesian architecture and risk layers as genuine strengths worth preserving. Rates the infrastructure higher.<br>
+      <strong>Tanaka (CCC-):</strong> Sees the risk management gaps (no portfolio drawdown stop) as more severe than Webb. Infrastructure is good per-strategy but missing portfolio-level protection.<br>
+      <strong>Krawczyk (D):</strong> Fee erosion analysis shows strategies are structurally unprofitable even with perfect signals. This pushes below CCC into D territory -- the system cannot be fixed with parameter changes alone; the strategy thesis itself needs rethinking.<br><br>
+      <em>Resolution: The disagreement is about degree, not direction. All agree the system should not trade. Krawczyk's fee analysis is the most severe finding because it affects all strategies regardless of other fixes.</em>
+    </div>
+  </div>
+</div>
+
+<!-- ===== RISK MATRIX TAB ===== -->
+<div class="panel" id="risk">
+  <h2>Unified Risk Matrix</h2>
+
+  <div class="callout callout-critical">
+    <div class="callout-label" style="color: var(--red);">Critical Test</div>
+    <div class="callout-text">"If you put significant capital behind this system and walked away for a month -- would you come back to more money or less?"</div>
+    <div style="margin-top: 12px; font-size: 14px;"><strong>Unanimous answer: Less. P(ruin in 30 days) = 75-90%.</strong></div>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Scenario</th>
+        <th>Tier</th>
+        <th>Probability</th>
+        <th>Impact</th>
+        <th>Expected Loss</th>
+        <th>Mitigation</th>
+        <th>Experts</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="color: var(--text);">Capital erosion from strategies with no edge</td>
+        <td><span class="tier-badge tier-r1">R1</span></td>
+        <td style="color: var(--red);">85%</td>
+        <td style="color: var(--red);">TERMINAL</td>
+        <td>$152 (100%)</td>
+        <td style="color: var(--red);">NONE</td>
+        <td><span class="expert-tag">All 3</span></td>
+      </tr>
+      <tr>
+        <td style="color: var(--text);">4 consecutive daily loss limit hits</td>
+        <td><span class="tier-badge tier-r3">R3</span></td>
+        <td style="color: var(--red);">35%</td>
+        <td style="color: var(--red);">TERMINAL</td>
+        <td>$152 (100%)</td>
+        <td style="color: var(--red);">NONE</td>
+        <td><span class="expert-tag">Tanaka</span></td>
+      </tr>
+      <tr>
+        <td style="color: var(--text);">Bot restart wipes financial circuit breaker state</td>
+        <td><span class="tier-badge tier-r4">R4</span></td>
+        <td style="color: var(--orange);">70%</td>
+        <td style="color: var(--orange);">HIGH</td>
+        <td>All risk boundaries lost</td>
+        <td style="color: var(--red);">NONE</td>
+        <td><span class="expert-tag">Tanaka</span></td>
+      </tr>
+      <tr>
+        <td style="color: var(--text);">Bayesian priors mask negative EV for 40-60+ trades</td>
+        <td><span class="tier-badge tier-r1">R1</span></td>
+        <td style="color: var(--orange);">80%</td>
+        <td style="color: var(--orange);">HIGH</td>
+        <td>$50-100</td>
+        <td style="color: var(--amber);">By design</td>
+        <td><span class="expert-tag">Webb</span> <span class="expert-tag">Krawczyk</span></td>
+      </tr>
+      <tr>
+        <td style="color: var(--text);">Strategy auto-reenable into same failing regime</td>
+        <td><span class="tier-badge tier-r2">R2</span></td>
+        <td style="color: var(--orange);">50%</td>
+        <td style="color: var(--orange);">HIGH</td>
+        <td>$30-75/event</td>
+        <td style="color: var(--amber);">PARTIAL</td>
+        <td><span class="expert-tag">Tanaka</span></td>
+      </tr>
+      <tr>
+        <td style="color: var(--text);">Spread costs exceed claimed EV</td>
+        <td><span class="tier-badge tier-r2">R2</span></td>
+        <td style="color: var(--orange);">60%</td>
+        <td style="color: var(--amber);">MODERATE</td>
+        <td>$18-36/month</td>
+        <td style="color: var(--red);">NONE</td>
+        <td><span class="expert-tag">Webb</span></td>
+      </tr>
+      <tr>
+        <td style="color: var(--text);">Correlated failure across all strategies</td>
+        <td><span class="tier-badge tier-r3">R3</span></td>
+        <td style="color: var(--amber);">25%</td>
+        <td style="color: var(--orange);">HIGH</td>
+        <td>$50-100/day</td>
+        <td style="color: var(--amber);">PARTIAL</td>
+        <td><span class="expert-tag">Webb</span> <span class="expert-tag">Tanaka</span></td>
+      </tr>
+      <tr>
+        <td style="color: var(--text);">Combinatorial arb partial fill</td>
+        <td><span class="tier-badge tier-r2">R2</span></td>
+        <td style="color: var(--amber);">40%</td>
+        <td style="color: var(--orange);">HIGH</td>
+        <td>$100/event</td>
+        <td style="color: var(--red);">NONE</td>
+        <td><span class="expert-tag">Krawczyk</span></td>
+      </tr>
+      <tr>
+        <td style="color: var(--text);">Liquidity crisis in thin Kalshi markets</td>
+        <td><span class="tier-badge tier-r2">R2</span></td>
+        <td style="color: var(--amber);">20%</td>
+        <td style="color: var(--amber);">MODERATE</td>
+        <td>$5-25/trade</td>
+        <td style="color: var(--red);">NONE</td>
+        <td><span class="expert-tag">Tanaka</span></td>
+      </tr>
+      <tr>
+        <td style="color: var(--text);">Flash crash / gap through stop loss</td>
+        <td><span class="tier-badge tier-r2">R2</span></td>
+        <td style="color: var(--text-dim);">15%</td>
+        <td style="color: var(--orange);">HIGH</td>
+        <td>$10-50/position</td>
+        <td style="color: var(--red);">NONE</td>
+        <td><span class="expert-tag">Tanaka</span></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ===== METHODOLOGY TAB ===== -->
+<div class="panel" id="methodology">
+  <h2>Methodology Coverage Dashboard</h2>
+
+  <div class="card" style="margin-bottom: 24px;">
+    <div class="card-header">Overall Coverage</div>
+    <div class="card-value" style="color: var(--red);">25%</div>
+    <div class="card-detail">3 of 12 critical methodologies fully implemented</div>
+    <div class="progress-bar-bg">
+      <div class="progress-bar-fill" style="width: 25%; background: var(--red);"></div>
+    </div>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Methodology</th>
+        <th>Webb</th>
+        <th>Tanaka</th>
+        <th>Krawczyk</th>
+        <th>Overall</th>
+        <th>Priority</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="color: var(--text);">Kelly Criterion</td>
+        <td><span class="coverage-status coverage-full">FULL</span></td>
+        <td><span class="coverage-status coverage-full">FULL</span></td>
+        <td><span class="coverage-status coverage-full">FULL</span></td>
+        <td><span class="coverage-status coverage-full">FULL</span></td>
+        <td>Inputs need validation</td>
+      </tr>
+      <tr>
+        <td style="color: var(--text);">Bayesian Updating</td>
+        <td><span class="coverage-status coverage-full">FULL</span></td>
+        <td><span class="coverage-status coverage-full">FULL</span></td>
+        <td><span class="coverage-status coverage-full">FULL</span></td>
+        <td><span class="coverage-status coverage-full">FULL</span></td>
+        <td>Sound but priors wrong</td>
+      </tr>
+      <tr>
+        <td style="color: var(--text);">Regime Detection</td>
+        <td><span class="coverage-status coverage-full">FULL</span></td>
+        <td><span class="coverage-status coverage-full">FULL</span></td>
+        <td><span class="coverage-status coverage-partial">PARTIAL</span></td>
+        <td><span class="coverage-status coverage-partial">PARTIAL</span></td>
+        <td>Untested in production</td>
+      </tr>
+      <tr>
+        <td style="color: var(--text);">Walk-Forward Testing</td>
+        <td><span class="coverage-status coverage-missing">MISSING</span></td>
+        <td>N/A</td>
+        <td><span class="coverage-status coverage-missing">MISSING</span></td>
+        <td><span class="coverage-status coverage-missing">MISSING</span></td>
+        <td style="color: var(--red);">P1</td>
+      </tr>
+      <tr>
+        <td style="color: var(--text);">Monte Carlo / Ruin Analysis</td>
+        <td><span class="coverage-status coverage-missing">MISSING</span></td>
+        <td><span class="coverage-status coverage-missing">MISSING</span></td>
+        <td><span class="coverage-status coverage-missing">MISSING</span></td>
+        <td><span class="coverage-status coverage-missing">MISSING</span></td>
+        <td style="color: var(--red);">P2</td>
+      </tr>
+      <tr>
+        <td style="color: var(--text);">Transaction Cost Model</td>
+        <td><span class="coverage-status coverage-missing">MISSING</span></td>
+        <td>N/A</td>
+        <td><span class="coverage-status coverage-partial">PARTIAL</span></td>
+        <td><span class="coverage-status coverage-missing">MISSING</span></td>
+        <td style="color: var(--red);">P0</td>
+      </tr>
+      <tr>
+        <td style="color: var(--text);">VaR / CVaR</td>
+        <td>N/A</td>
+        <td><span class="coverage-status coverage-missing">MISSING</span></td>
+        <td>N/A</td>
+        <td><span class="coverage-status coverage-missing">MISSING</span></td>
+        <td style="color: var(--orange);">P2</td>
+      </tr>
+      <tr>
+        <td style="color: var(--text);">Correlation Analysis</td>
+        <td><span class="coverage-status coverage-partial">PARTIAL</span></td>
+        <td><span class="coverage-status coverage-partial">PARTIAL</span></td>
+        <td>N/A</td>
+        <td><span class="coverage-status coverage-partial">PARTIAL</span></td>
+        <td style="color: var(--orange);">P2</td>
+      </tr>
+      <tr>
+        <td style="color: var(--text);">Statistical Significance</td>
+        <td><span class="coverage-status coverage-missing">MISSING</span></td>
+        <td>N/A</td>
+        <td><span class="coverage-status coverage-missing">MISSING</span></td>
+        <td><span class="coverage-status coverage-missing">MISSING</span></td>
+        <td style="color: var(--red);">P1</td>
+      </tr>
+      <tr>
+        <td style="color: var(--text);">Max Drawdown Analysis</td>
+        <td><span class="coverage-status coverage-missing">MISSING</span></td>
+        <td><span class="coverage-status coverage-partial">PARTIAL</span></td>
+        <td>N/A</td>
+        <td><span class="coverage-status coverage-missing">MISSING</span></td>
+        <td style="color: var(--red);">P0</td>
+      </tr>
+      <tr>
+        <td style="color: var(--text);">Overfitting Detection</td>
+        <td>N/A</td>
+        <td>N/A</td>
+        <td><span class="coverage-status coverage-missing">MISSING</span></td>
+        <td><span class="coverage-status coverage-missing">MISSING</span></td>
+        <td style="color: var(--red);">P1</td>
+      </tr>
+      <tr>
+        <td style="color: var(--text);">Slippage Modeling</td>
+        <td>N/A</td>
+        <td>N/A</td>
+        <td><span class="coverage-status coverage-missing">MISSING</span></td>
+        <td><span class="coverage-status coverage-missing">MISSING</span></td>
+        <td style="color: var(--orange);">P2</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>Adversarial Scenario Coverage</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Scenario</th>
+        <th>Webb</th>
+        <th>Tanaka</th>
+        <th>Krawczyk</th>
+        <th>Verdict</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="color: var(--text);">1. Overfitting/P-Hacking</td>
+        <td>-</td>
+        <td>-</td>
+        <td style="color: var(--red);">CONFIRMED</td>
+        <td style="color: var(--red);">17 strategies, no corrections</td>
+      </tr>
+      <tr>
+        <td style="color: var(--text);">2. Regime Change</td>
+        <td>-</td>
+        <td>Tested</td>
+        <td style="color: var(--red);">EXPOSED</td>
+        <td style="color: var(--red);">17K consecutive calm readings</td>
+      </tr>
+      <tr>
+        <td style="color: var(--text);">3. Liquidity Crisis</td>
+        <td>Tested</td>
+        <td>Tested</td>
+        <td>-</td>
+        <td style="color: var(--orange);">Partially vulnerable</td>
+      </tr>
+      <tr>
+        <td style="color: var(--text);">4. Execution Failure</td>
+        <td>-</td>
+        <td>Tested</td>
+        <td>-</td>
+        <td style="color: var(--amber);">API breaker helps, positions exposed</td>
+      </tr>
+      <tr>
+        <td style="color: var(--text);">5. Correlation Blow-Up</td>
+        <td>Tested</td>
+        <td style="color: var(--red);">HIGHLY VULN</td>
+        <td>-</td>
+        <td style="color: var(--red);">Unmeasured, uncapped</td>
+      </tr>
+      <tr>
+        <td style="color: var(--text);">6. Data Poisoning</td>
+        <td>-</td>
+        <td>-</td>
+        <td>-</td>
+        <td style="color: var(--text-muted);">Not tested</td>
+      </tr>
+      <tr>
+        <td style="color: var(--text);">7. Capital Constraint</td>
+        <td>-</td>
+        <td style="color: var(--red);">THIS HAPPENED</td>
+        <td style="color: var(--red);">BINDING</td>
+        <td style="color: var(--red);">System designed to allow this failure</td>
+      </tr>
+      <tr>
+        <td style="color: var(--text);">8. Fee Erosion</td>
+        <td>-</td>
+        <td>-</td>
+        <td style="color: var(--red);">CRITICAL</td>
+        <td style="color: var(--red);">Strategies unprofitable after costs</td>
+      </tr>
+      <tr>
+        <td style="color: var(--text);">9. Flash Crash</td>
+        <td>-</td>
+        <td style="color: var(--red);">VULNERABLE</td>
+        <td>-</td>
+        <td style="color: var(--orange);">No gap protection</td>
+      </tr>
+      <tr>
+        <td style="color: var(--text);">10. Black Swan Expiry</td>
+        <td>-</td>
+        <td>-</td>
+        <td>-</td>
+        <td style="color: var(--text-muted);">Not tested</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ===== ASSESSMENT TAB ===== -->
+<div class="panel" id="assessment">
+  <h2>Round 1 Assessment Summary</h2>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-header">Rating Trajectory</div>
+      <table>
+        <thead><tr><th>Round</th><th>Date</th><th>Rating</th><th>P0s</th></tr></thead>
+        <tbody>
+          <tr>
+            <td style="color: var(--text);">1</td>
+            <td>2026-03-04</td>
+            <td style="color: var(--red); font-weight: 700;">D</td>
+            <td style="color: var(--red);">7</td>
+          </tr>
+          <tr>
+            <td style="color: var(--text-muted);">2</td>
+            <td style="color: var(--text-muted);">Pending</td>
+            <td style="color: var(--text-muted);">Target: CCC+</td>
+            <td style="color: var(--text-muted);">-</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card">
+      <div class="card-header">Path to AAA</div>
+      <div class="stat-row">
+        <span class="stat-label">P0 blockers remaining</span>
+        <span class="stat-value" style="color: var(--red);">7</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-label">P1 issues</span>
+        <span class="stat-value" style="color: var(--orange);">8</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-label">Estimated rounds to AAA</span>
+        <span class="stat-value">6-8</span>
+      </div>
+      <div class="stat-row" style="border: none;">
+        <span class="stat-label">Methodology coverage target</span>
+        <span class="stat-value">90%+ (currently 25%)</span>
+      </div>
+    </div>
+  </div>
+
+  <h2>P0 -- Immediate (Blocking All Live Trading)</h2>
+
+  <div class="recommendation p0">
+    <div class="rec-priority p0">P0-1: Halt live trading</div>
+    <div class="rec-text"><strong>All 3 experts agree.</strong> The system has no validated edge. Remaining $152 should be preserved. Change config to disable all strategies or set dry_run: true.</div>
+    <div class="checkbox-item"><input type="checkbox"> Disable all strategies in config.yaml</div>
+  </div>
+
+  <div class="recommendation p0">
+    <div class="rec-priority p0">P0-2: Add portfolio-level drawdown stop</div>
+    <div class="rec-text">New config params: <code>max_portfolio_drawdown_pct: 0.20</code> and <code>min_balance_floor: 50</code>. Check in trading loop before any risk assessment. <strong>Tanaka:</strong> "The absence of a simple if balance &lt; initial_balance * 0.80 guard is the structural gap."</div>
+    <div class="checkbox-item"><input type="checkbox"> Add max_portfolio_drawdown_pct to config.yaml</div>
+    <div class="checkbox-item"><input type="checkbox"> Add min_balance_floor to config.yaml</div>
+    <div class="checkbox-item"><input type="checkbox"> Implement check in main.py _trading_cycle()</div>
+  </div>
+
+  <div class="recommendation p0">
+    <div class="rec-priority p0">P0-3: Make daily_loss_limit balance-proportional</div>
+    <div class="rec-text">Change from fixed $100 to <code>daily_loss_limit_pct: 0.03</code> (3% of current balance = $4.56 at $152). Current $100 is 13-66x industry standard.</div>
+    <div class="checkbox-item"><input type="checkbox"> Update config.yaml and deepstack_integration.py</div>
+  </div>
+
+  <div class="recommendation p0">
+    <div class="rec-priority p0">P0-4: Make max_position_size balance-proportional</div>
+    <div class="rec-text">Change from fixed $50 to <code>max_position_size_pct: 0.05</code> (5% of balance = $7.60 at $152). Three losing trades at current sizing = 75% of account.</div>
+    <div class="checkbox-item"><input type="checkbox"> Update config.yaml and deepstack_integration.py</div>
+  </div>
+
+  <div class="recommendation p0">
+    <div class="rec-priority p0">P0-5: Reduce to single strategy</div>
+    <div class="rec-text">Disable all strategies except one (for paper-trade validation). 4 strategies at $152 is mathematically meaningless. <strong>Webb:</strong> "Run single-strategy until 50+ trades establish a real win rate."</div>
+    <div class="checkbox-item"><input type="checkbox"> Disable all but one strategy in config.yaml</div>
+  </div>
+
+  <div class="recommendation p0">
+    <div class="rec-priority p0">P0-6: Model transaction costs</div>
+    <div class="rec-text"><strong>Krawczyk's killshot:</strong> Mean reversion with market orders has EV = -11.2c/trade at ANY win rate. With limit orders, break-even requires 69%. The strategy is structurally unprofitable after fees. Model Kalshi commissions (7c market, 2c limit) in all EV calculations.</div>
+    <div class="checkbox-item"><input type="checkbox"> Add commission modeling to base.py calculate_edge()</div>
+    <div class="checkbox-item"><input type="checkbox"> Add commission parameter to backtest runner</div>
+  </div>
+
+  <div class="recommendation p0">
+    <div class="rec-priority p0">P0-7: Run backtests on real Kalshi data</div>
+    <div class="rec-text">The backtest runner exists but has never been used for active strategies. Require 200+ simulated trades per strategy with realistic commissions. If backtest EV is negative after costs, do not enable.</div>
+    <div class="checkbox-item"><input type="checkbox"> Collect 3+ months historical Kalshi data</div>
+    <div class="checkbox-item"><input type="checkbox"> Run mean_reversion backtest (200+ trades)</div>
+    <div class="checkbox-item"><input type="checkbox"> Run momentum backtest (200+ trades)</div>
+  </div>
+
+  <h2>P1 -- This Week</h2>
+
+  <div class="recommendation p1">
+    <div class="rec-priority p1">P1-1: Fix Kelly fraction documentation</div>
+    <div class="rec-text">Config comment is mathematically impossible. Document actual derivation.</div>
+  </div>
+  <div class="recommendation p1">
+    <div class="rec-priority p1">P1-2: Rename circuit_breaker.py to api_circuit_breaker.py</div>
+    <div class="rec-text">Eliminate dangerous naming confusion. Update imports and consciousness files.</div>
+  </div>
+  <div class="recommendation p1">
+    <div class="rec-priority p1">P1-3: Persist financial circuit breaker state to SQLite</div>
+    <div class="rec-text">In-memory counters reset on restart, wiping all learned risk boundaries.</div>
+  </div>
+  <div class="recommendation p1">
+    <div class="rec-priority p1">P1-4: Restore quality filters to original values</div>
+    <div class="rec-text">min_volume: 100+, min_score: 30, min_liquidity: 50. "Edge over volume."</div>
+  </div>
+  <div class="recommendation p1">
+    <div class="rec-priority p1">P1-5: Gate auto-reenable on observed (not blended) positive EV</div>
+    <div class="rec-text">Require observed_ev > 0 for 10+ trades before removing probation.</div>
+  </div>
+  <div class="recommendation p1">
+    <div class="rec-priority p1">P1-6: Reduce prior_strength from 20 to 5</div>
+    <div class="rec-text">Faster convergence to reality. Current system takes 4-6 months to recognize failure.</div>
+  </div>
+  <div class="recommendation p1">
+    <div class="rec-priority p1">P1-7: Set governance mode to advisory</div>
+    <div class="rec-text">149,000+ autonomous decisions about strategies with near-zero track records. Change to advisory until strategies are validated.</div>
+  </div>
+  <div class="recommendation p1">
+    <div class="rec-priority p1">P1-8: Rethink mean reversion thesis for prediction markets</div>
+    <div class="rec-text"><strong>Webb:</strong> "In prediction markets, the 'fundamental value' is the unknown true probability -- there is no gravitational pull back to 50c." Consider: expiry dynamics, information asymmetry, calibration edge (favorite-longshot bias).</div>
+  </div>
+
+  <h2>P2 -- This Month</h2>
+
+  <div class="recommendation p2">
+    <div class="rec-priority p2">P2-1: Walk-forward validation framework</div>
+    <div class="rec-text">70/30 train/test split. If out-of-sample Sharpe < 0.5, strategy does not go live.</div>
+  </div>
+  <div class="recommendation p2">
+    <div class="rec-priority p2">P2-2: Monte Carlo / Risk of Ruin analysis</div>
+    <div class="rec-text">Simulate 10,000 paths. If P(ruin at 100 trades) > 10%, system should not be live.</div>
+  </div>
+  <div class="recommendation p2">
+    <div class="rec-priority p2">P2-3: White's Reality Check for multiple comparisons</div>
+    <div class="rec-text">17 strategies tested without correction. P(false positive) = 1-(0.95)^17 = 58%.</div>
+  </div>
+  <div class="recommendation p2">
+    <div class="rec-priority p2">P2-4: Cross-strategy correlation monitoring</div>
+    <div class="rec-text">Currently only max_per_series=2 limits within series. No cross-strategy measurement.</div>
+  </div>
+  <div class="recommendation p2">
+    <div class="rec-priority p2">P2-5: VaR/CVaR calculation</div>
+    <div class="rec-text">Even simple historical VaR (95th percentile) would provide critical risk awareness.</div>
+  </div>
+
+  <div class="footer">
+    DeepStack Trading Board / Round 1 Assessment / 2026-03-04<br>
+    Experts: Webb (Quant) + Tanaka (Risk) + Krawczyk (Strategy)<br>
+    Rating: D (Default) / Quality: D+ / Confidence: 0.85<br>
+    Next: Implement P0 fixes, reassess with Round 2
+  </div>
+</div>
+
+</div>
+
+<script>
+function showTab(id) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  event.target.classList.add('active');
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,24 @@
+{
+  "date": "2026-03-12",
+  "window": "7d",
+  "repo": "Development",
+  "metrics": {
+    "commits": 3,
+    "prs_merged": 1,
+    "insertions": 9252,
+    "deletions": 848,
+    "net_loc": 8404,
+    "test_loc": 0,
+    "test_ratio": 0.0,
+    "active_days": 1,
+    "sessions": 1,
+    "deep_sessions": 0,
+    "avg_session_minutes": 1,
+    "loc_per_session_hour": 0,
+    "feat_pct": 0.33,
+    "fix_pct": 0.0,
+    "peak_hour": 19
+  },
+  "streak_days": 0,
+  "tweetable": "Week of Mar 6: 3 commits, 9.3k LOC, 0% tests, 1 PR, peak: 7pm | Streak: 0d (broken)"
+}

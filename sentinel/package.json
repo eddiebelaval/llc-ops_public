@@ -1,0 +1,49 @@
+{
+  "name": "claude-sentinel",
+  "version": "0.1.0",
+  "description": "Always-on daemon for Claude Code — persistent sessions, file-based inbox, autonomous watchers",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "sentinel": "dist/cli.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsx src/cli.ts",
+    "start": "node dist/cli.js",
+    "typecheck": "tsc --noEmit",
+    "test": "node --import tsx --test test/**/*.test.ts"
+  },
+  "keywords": [
+    "claude",
+    "claude-code",
+    "daemon",
+    "always-on",
+    "persistent-session",
+    "ai-agent"
+  ],
+  "author": "Your Name <your-email@example.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/your-username/sentinel.git"
+  },
+  "homepage": "https://github.com/your-username/sentinel#readme",
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "dependencies": {
+    "chokidar": "^4.0.3",
+    "yaml": "^2.7.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.7.0"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}

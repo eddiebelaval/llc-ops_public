@@ -1,0 +1,74 @@
+# Secrets - Never commit these
+.env
+.env.local
+*.pem
+*.key
+secrets.json
+CLAUDE_API_KEY
+telegram.env
+**/telegram.env
+credentials/
+
+# Reports and logs
+reports/
+*.log
+launchd-*.log
+
+# OS
+.DS_Store
+.AppleDouble
+.LSOverride
+*.swp
+*~
+
+# IDE
+.vscode/
+.idea/
+*.sublime-project
+
+# Node
+node_modules/
+.next/
+dist/
+build/
+
+# Local configuration
+local/
+temp/
+
+# Nested git repositories (each has its own repo)
+/Homer/
+/id8/
+stitch/
+learning/
+_archive/
+session-resilience-agents
+
+# Browser automation screenshots
+.playwright-mcp/
+*.png
+
+# Temporary files
+*.docx
+*.csv
+.worktrees/
+.pnpm-store/
+claude-plans/
+
+# Workspace system
+scratch/
+.claude/
+
+# Standalone projects/experiments
+cryexc-backend/
+claude-visual-toolkit/
+assets/
+audits/
+ai-academy-consolidated/
+
+# Other nested projects
+clawd/
+Homer-*/
+homer-pro-*/
+**/fonts/
+.dmux/

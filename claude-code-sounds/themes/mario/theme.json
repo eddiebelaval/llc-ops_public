@@ -1,0 +1,206 @@
+{
+  "name": "Super Mario Bros",
+  "description": "Iconic Super Mario sound effects from NES, SNES, and N64 — coins, power-ups, and Mario's voice",
+  "author": "ryparker",
+  "sources": [
+    "themushroomkingdom.net"
+  ],
+  "sounds": {
+    "start": {
+      "description": "Session starting — here we go!",
+      "files": [
+        {
+          "name": "lets-a-go.wav"
+        },
+        {
+          "name": "here-we-go.wav"
+        },
+        {
+          "name": "its-a-me-mario.wav"
+        },
+        {
+          "name": "hello.wav"
+        },
+        {
+          "name": "1-up.wav"
+        }
+      ]
+    },
+    "end": {
+      "description": "Session over — course clear",
+      "files": [
+        {
+          "name": "stage-clear.wav"
+        },
+        {
+          "name": "world-clear.wav"
+        },
+        {
+          "name": "flagpole.wav"
+        },
+        {
+          "name": "okey-dokey.wav"
+        }
+      ]
+    },
+    "prompt": {
+      "description": "User submitted prompt — coin collected",
+      "files": [
+        {
+          "name": "coin.wav"
+        },
+        {
+          "name": "block-bump.wav"
+        },
+        {
+          "name": "fireball.wav"
+        },
+        {
+          "name": "haha.wav"
+        }
+      ]
+    },
+    "stop": {
+      "description": "Done responding — power-up complete",
+      "files": [
+        {
+          "name": "power-up.wav"
+        },
+        {
+          "name": "smw-power-up.wav"
+        },
+        {
+          "name": "smb3-power-up.wav"
+        },
+        {
+          "name": "stomp.wav"
+        }
+      ]
+    },
+    "permission": {
+      "description": "Permission prompt — question block",
+      "files": [
+        {
+          "name": "pause.wav"
+        },
+        {
+          "name": "question-block.wav"
+        },
+        {
+          "name": "message-block.wav"
+        },
+        {
+          "name": "warp-whistle.wav"
+        }
+      ]
+    },
+    "idle": {
+      "description": "Waiting for input — Mario is bored",
+      "files": [
+        {
+          "name": "snore.wav"
+        },
+        {
+          "name": "yawn.wav"
+        },
+        {
+          "name": "tired.wav"
+        },
+        {
+          "name": "mamma-mia.wav"
+        }
+      ]
+    },
+    "subagent": {
+      "description": "Spawning subagent — summoning helper",
+      "files": [
+        {
+          "name": "mushroom-appears.wav"
+        },
+        {
+          "name": "vine-grow.wav"
+        },
+        {
+          "name": "raccoon-transform.wav"
+        },
+        {
+          "name": "yahoo.wav"
+        }
+      ]
+    },
+    "error": {
+      "description": "Tool failure — took damage",
+      "files": [
+        {
+          "name": "death.wav"
+        },
+        {
+          "name": "hurt.wav"
+        },
+        {
+          "name": "burned.wav"
+        },
+        {
+          "name": "doh.wav"
+        },
+        {
+          "name": "oof.wav"
+        },
+        {
+          "name": "game-over.wav"
+        }
+      ]
+    },
+    "task-completed": {
+      "description": "Task finished — star collected",
+      "files": [
+        {
+          "name": "star-appears.wav"
+        },
+        {
+          "name": "level-clear.wav"
+        },
+        {
+          "name": "happy-message.wav"
+        },
+        {
+          "name": "yippee.wav"
+        }
+      ]
+    },
+    "compact": {
+      "description": "Context compaction — pipe warp",
+      "files": [
+        {
+          "name": "pipe-warp.wav"
+        },
+        {
+          "name": "smw-pipe.wav"
+        },
+        {
+          "name": "warp.wav"
+        },
+        {
+          "name": "shrink.wav"
+        }
+      ]
+    },
+    "teammate-idle": {
+      "description": "Teammate went idle — notification",
+      "files": [
+        {
+          "name": "smw-1-up.wav"
+        },
+        {
+          "name": "break-block.wav"
+        },
+        {
+          "name": "whoa.wav"
+        },
+        {
+          "name": "waha.wav"
+        }
+      ]
+    }
+  }
+}

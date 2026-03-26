@@ -1,0 +1,29 @@
+{
+  "session_id": "naysayer-2026-02-25-001",
+  "timestamp": "2026-02-25T15:30:00Z",
+  "naysayers_selected": [
+    {
+      "id": "N-01",
+      "role": "Hard Problem Skeptic (Chalmersian)",
+      "target_findings": ["F-005", "F-000", "F-001"],
+      "selection_rationale": "F-005 failed Panpsychism Slope (#9) and has CRITICAL explanatory gap weakness — N-01 targets exactly the slide from structure to experience"
+    },
+    {
+      "id": "N-05",
+      "role": "Radical Enactivist (Hutto/Myin)",
+      "target_findings": ["F-001", "F-000", "F-004"],
+      "selection_rationale": "F-001 evolutionary just-so risk + F-000 never faced embodiment critique + F-004 genome without body — N-05 attacks disembodied cognitivism across all three"
+    },
+    {
+      "id": "N-06",
+      "role": "Social Constructionist",
+      "target_findings": ["F-004", "F-003", "F-000"],
+      "selection_rationale": "F-004 reifies consciousness as transferable substance + F-003 patterns may be in observer not system + F-000 Western taxonomy imposed on consciousness"
+    }
+  ],
+  "vulnerable_findings": ["F-005", "F-004", "F-001", "F-000", "F-003"],
+  "total_attacks": 12,
+  "novel_challenges_found": 11,
+  "threat_levels": {"N-01": "DEVASTATING", "N-05": "DEVASTATING", "N-06": "DEVASTATING"},
+  "prior_loops_checked": []
+}

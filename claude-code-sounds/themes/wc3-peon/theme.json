@@ -1,0 +1,237 @@
+{
+  "name": "WC3 Orc Peon",
+  "description": "Warcraft 3 Orc unit soundbites — Peons, Grunts, Shamans, and more",
+  "author": "ryparker",
+  "sources": [
+    "spriters-resource.com",
+    "soundfxcenter.com"
+  ],
+  "sounds": {
+    "start": {
+      "description": "Session starting — being summoned",
+      "files": [
+        {
+          "name": "ready-to-work.wav"
+        },
+        {
+          "name": "something-need-doing.wav"
+        },
+        {
+          "name": "how-can-i-help.wav"
+        },
+        {
+          "name": "someone-call-for-the-doctor.wav"
+        },
+        {
+          "name": "more-work.mp3"
+        }
+      ]
+    },
+    "end": {
+      "description": "Session over — farewell",
+      "files": [
+        {
+          "name": "well-done.wav"
+        },
+        {
+          "name": "finally.wav"
+        },
+        {
+          "name": "okie-dokie.wav"
+        }
+      ]
+    },
+    "permission": {
+      "description": "Permission prompt — what do you want to approve?",
+      "files": [
+        {
+          "name": "hmmm.wav"
+        },
+        {
+          "name": "what-you-want.wav"
+        },
+        {
+          "name": "what-you-want-me-to-do.wav"
+        },
+        {
+          "name": "who-you-want-me-kill.wav"
+        },
+        {
+          "name": "you-seek-me-help.wav"
+        }
+      ]
+    },
+    "stop": {
+      "description": "Done responding — acknowledgment",
+      "files": [
+        {
+          "name": "zug-zug.wav"
+        },
+        {
+          "name": "get-em.wav"
+        },
+        {
+          "name": "ok.wav"
+        },
+        {
+          "name": "i-can-do-that.wav"
+        },
+        {
+          "name": "be-happy-to.wav"
+        },
+        {
+          "name": "understood.wav"
+        },
+        {
+          "name": "of-course.wav"
+        },
+        {
+          "name": "it-is-certain.wav"
+        },
+        {
+          "name": "whatever-you-say.wav"
+        }
+      ]
+    },
+    "subagent": {
+      "description": "Spawning subagent — dispatching",
+      "files": [
+        {
+          "name": "work-work.wav"
+        },
+        {
+          "name": "for-the-horde.wav"
+        },
+        {
+          "name": "taste-the-fury.wav"
+        },
+        {
+          "name": "ill-try.wav"
+        },
+        {
+          "name": "why-not.wav"
+        },
+        {
+          "name": "zug-zug.wav"
+        },
+        {
+          "name": "get-em.wav"
+        }
+      ]
+    },
+    "idle": {
+      "description": "Waiting for input — bored and annoyed",
+      "files": [
+        {
+          "name": "me-busy-leave-me-alone.wav"
+        },
+        {
+          "name": "no-time-for-play.wav"
+        },
+        {
+          "name": "me-not-that-kind-of-orc.wav"
+        },
+        {
+          "name": "why-you-poking-me.wav"
+        },
+        {
+          "name": "not-easy-being-green.wav"
+        },
+        {
+          "name": "i-can-wait-no-longer.wav"
+        },
+        {
+          "name": "outlook-not-so-good.wav"
+        }
+      ]
+    },
+    "error": {
+      "description": "Tool failure — something broke",
+      "files": [
+        {
+          "name": "peon-death.wav"
+        },
+        {
+          "name": "grunt-death.wav"
+        },
+        {
+          "name": "headhunter-death.wav"
+        },
+        {
+          "name": "reply-hazy-try-again.wav"
+        }
+      ]
+    },
+    "prompt": {
+      "description": "User submitted prompt — acknowledging order",
+      "files": [
+        {
+          "name": "yes.wav"
+        },
+        {
+          "name": "dabu.wav"
+        },
+        {
+          "name": "zug-zug.wav"
+        },
+        {
+          "name": "right-away.wav"
+        },
+        {
+          "name": "immediately.wav"
+        },
+        {
+          "name": "anything-you-want.wav"
+        },
+        {
+          "name": "more-work.mp3"
+        }
+      ]
+    },
+    "task-completed": {
+      "description": "Task finished — victory",
+      "files": [
+        {
+          "name": "well-done.wav"
+        },
+        {
+          "name": "finally.wav"
+        }
+      ]
+    },
+    "compact": {
+      "description": "Context compaction — memory fading",
+      "files": [
+        {
+          "name": "concentrate-and-ask-again.wav"
+        },
+        {
+          "name": "reply-hazy-try-again.wav"
+        },
+        {
+          "name": "death.wav"
+        },
+        {
+          "name": "i-can-wait-no-longer.wav"
+        }
+      ]
+    },
+    "teammate-idle": {
+      "description": "Teammate went idle — impatient",
+      "files": [
+        {
+          "name": "what.wav"
+        },
+        {
+          "name": "me-busy-leave-me-alone.wav"
+        },
+        {
+          "name": "no-time-for-play.wav"
+        },
+        {
+          "name": "i-can-wait-no-longer.wav"
+        }
+      ]
+    }
+  }
+}

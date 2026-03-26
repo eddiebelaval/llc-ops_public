@@ -1,0 +1,174 @@
+{
+  "name": "Star Wars",
+  "description": "Iconic Star Wars sound effects — lightsabers, droids, and the Force",
+  "author": "ryparker",
+  "sources": [
+    "thesoundarchive.com",
+    "wavsource.com"
+  ],
+  "sounds": {
+    "start": {
+      "description": "Session starting — the Force awakens",
+      "files": [
+        {
+          "name": "lightsaber-ignite.wav"
+        },
+        {
+          "name": "force-will-be-with-you.wav"
+        },
+        {
+          "name": "r2d2-woo-hoo.wav"
+        },
+        {
+          "name": "force-is-strong.wav"
+        }
+      ]
+    },
+    "end": {
+      "description": "Session over — farewell",
+      "files": [
+        {
+          "name": "lightsaber-off.wav"
+        },
+        {
+          "name": "bad-feeling.wav"
+        },
+        {
+          "name": "yoda-900-years-old.wav"
+        }
+      ]
+    },
+    "prompt": {
+      "description": "User submitted prompt — ready to serve",
+      "files": [
+        {
+          "name": "r2d2-beep.wav"
+        },
+        {
+          "name": "vader-yes-my-master.wav"
+        },
+        {
+          "name": "blaster-firing.wav"
+        },
+        {
+          "name": "r2d2-yeah.wav"
+        }
+      ]
+    },
+    "stop": {
+      "description": "Done responding — task acknowledged",
+      "files": [
+        {
+          "name": "force-is-strong-with-this-one.wav"
+        },
+        {
+          "name": "yoda-do-or-do-not.wav"
+        },
+        {
+          "name": "yoda-always-two.wav"
+        }
+      ]
+    },
+    "permission": {
+      "description": "Permission prompt — sense a disturbance",
+      "files": [
+        {
+          "name": "vader-breathing.wav"
+        },
+        {
+          "name": "its-a-trap.wav"
+        },
+        {
+          "name": "yoda-much-fear.wav"
+        },
+        {
+          "name": "vader-what-is-thy-bidding.wav"
+        }
+      ]
+    },
+    "idle": {
+      "description": "Waiting for input — restless",
+      "files": [
+        {
+          "name": "chewie-chatting.wav"
+        },
+        {
+          "name": "yoda-laughing.wav"
+        },
+        {
+          "name": "jabba-laughing.wav"
+        }
+      ]
+    },
+    "subagent": {
+      "description": "Spawning subagent — dispatching an ally",
+      "files": [
+        {
+          "name": "lord-vader-rise.wav"
+        },
+        {
+          "name": "i-am-your-father.wav"
+        },
+        {
+          "name": "darth-maul-reveal-ourselves.wav"
+        }
+      ]
+    },
+    "error": {
+      "description": "Tool failure — something went wrong",
+      "files": [
+        {
+          "name": "wilhelm-scream.wav"
+        },
+        {
+          "name": "great-disturbance.wav"
+        },
+        {
+          "name": "destroy-you.wav"
+        }
+      ]
+    },
+    "task-completed": {
+      "description": "Task finished — victory for the Rebellion",
+      "files": [
+        {
+          "name": "decided-to-rescue-you.wav"
+        },
+        {
+          "name": "you-were-the-chosen-one.wav"
+        },
+        {
+          "name": "destiny-fulfilled.wav"
+        }
+      ]
+    },
+    "compact": {
+      "description": "Context compaction — memories fading like the Force",
+      "files": [
+        {
+          "name": "yoda-dangerous-disturbing.wav"
+        },
+        {
+          "name": "yoda-twisted-by-dark-side.wav"
+        },
+        {
+          "name": "dark-side.wav"
+        }
+      ]
+    },
+    "teammate-idle": {
+      "description": "Teammate went idle — awaiting orders",
+      "files": [
+        {
+          "name": "r2d2-hey-you.wav"
+        },
+        {
+          "name": "chewie-roar.wav"
+        },
+        {
+          "name": "luke-dont-do-that.wav"
+        }
+      ]
+    }
+  }
+}

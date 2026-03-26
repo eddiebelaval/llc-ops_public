@@ -1,0 +1,19 @@
+# Sentinel self-hosting demo
+# Sentinel watches its own repo and runs CI tasks autonomously
+#
+# Usage:
+#   sentinel start --config examples/self-host.yaml
+
+inbox: ~/.sentinel/inbox
+outbox: ~/.sentinel/outbox
+workdir: ~/Development/sentinel
+
+# System prompt — Sentinel becomes its own CI assistant
+systemPrompt: >
+  You are Sentinel's CI assistant. Your working directory is the Sentinel
+  repository. When asked to verify, run `npm test` and `npx tsc --noEmit`.
+  Report pass/fail with the exact output. When asked to fix, read the
+  failing test, fix the code, then re-run tests to confirm.
+
+permissionMode: auto
+maxBudgetPerTask: 0.50

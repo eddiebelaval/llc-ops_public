@@ -1,0 +1,313 @@
+{
+  "version": "1.0",
+  "project": {
+    "name": "Codebase Map",
+    "description": "Living architecture dashboard",
+    "repo": "/Users/your-username/Development/codebase-map"
+  },
+  "protocol": {
+    "steps": [
+      "created",
+      "wired",
+      "integrated",
+      "tested",
+      "documented"
+    ],
+    "labels": {
+      "created": "File / component exists",
+      "wired": "Connected to consumers",
+      "integrated": "Data flows end-to-end",
+      "tested": "Tests passing",
+      "documented": "Docs written"
+    }
+  },
+  "layers": [
+    {
+      "id": "frontend",
+      "label": "Frontend",
+      "accent": "#4ecdc4"
+    },
+    {
+      "id": "backend",
+      "label": "Backend",
+      "accent": "#ef6f2e"
+    },
+    {
+      "id": "database",
+      "label": "Database",
+      "accent": "#f59e0b"
+    },
+    {
+      "id": "integration",
+      "label": "External",
+      "accent": "#8b5cf6"
+    }
+  ],
+  "blocks": [
+    {
+      "id": "cli",
+      "name": "CLI Entry Point",
+      "layer": "frontend",
+      "phase": "built",
+      "status": "yellow",
+      "x": 200,
+      "y": 50,
+      "files": [
+        "src/index.ts"
+      ],
+      "protocol": {
+        "created": true,
+        "wired": true,
+        "integrated": true,
+        "tested": false,
+        "documented": false
+      }
+    },
+    {
+      "id": "scanner",
+      "name": "Block Scanner",
+      "layer": "backend",
+      "phase": "built",
+      "status": "green",
+      "x": 100,
+      "y": 200,
+      "files": [
+        "src/scanner.ts"
+      ],
+      "protocol": {
+        "created": true,
+        "wired": true,
+        "integrated": true,
+        "tested": false,
+        "documented": true
+      }
+    },
+    {
+      "id": "archiver",
+      "name": "Version Archiver",
+      "layer": "backend",
+      "phase": "built",
+      "status": "yellow",
+      "x": 350,
+      "y": 200,
+      "files": [
+        "src/archiver.ts"
+      ],
+      "protocol": {
+        "created": true,
+        "wired": true,
+        "integrated": true,
+        "tested": false,
+        "documented": false
+      }
+    },
+    {
+      "id": "tasks",
+      "name": "Task Generator",
+      "layer": "backend",
+      "phase": "built",
+      "status": "yellow",
+      "x": 600,
+      "y": 200,
+      "files": [
+        "src/tasks.ts"
+      ],
+      "protocol": {
+        "created": true,
+        "wired": true,
+        "integrated": true,
+        "tested": false,
+        "documented": false
+      }
+    },
+    {
+      "id": "types",
+      "name": "Type Definitions",
+      "layer": "backend",
+      "phase": "built",
+      "status": "yellow",
+      "x": 350,
+      "y": 350,
+      "files": [
+        "src/types.ts"
+      ],
+      "protocol": {
+        "created": true,
+        "wired": true,
+        "integrated": true,
+        "tested": false,
+        "documented": false
+      }
+    },
+    {
+      "id": "visualization",
+      "name": "HTML Visualization",
+      "layer": "frontend",
+      "phase": "built",
+      "status": "yellow",
+      "x": 500,
+      "y": 50,
+      "files": [
+        "../artifacts/codebase-map/concept-mockup.html"
+      ],
+      "protocol": {
+        "created": true,
+        "wired": true,
+        "integrated": true,
+        "tested": false,
+        "documented": false
+      }
+    }
+  ],
+  "connections": [
+    {
+      "from": "cli",
+      "to": "scanner",
+      "type": "api",
+      "flow": "active"
+    },
+    {
+      "from": "cli",
+      "to": "archiver",
+      "type": "api",
+      "flow": "active"
+    },
+    {
+      "from": "cli",
+      "to": "tasks",
+      "type": "api",
+      "flow": "active"
+    },
+    {
+      "from": "scanner",
+      "to": "types",
+      "type": "data",
+      "flow": "active"
+    },
+    {
+      "from": "archiver",
+      "to": "types",
+      "type": "data",
+      "flow": "active"
+    },
+    {
+      "from": "tasks",
+      "to": "types",
+      "type": "data",
+      "flow": "active"
+    },
+    {
+      "from": "visualization",
+      "to": "types",
+      "type": "data",
+      "flow": "active"
+    }
+  ],
+  "heartbeat": {
+    "lastScan": "2026-02-14T19:12:33.269Z",
+    "version": 2,
+    "scanDurationMs": 4,
+    "blocksChanged": 0
+  },
+  "tasks": [
+    {
+      "id": "cli--tested",
+      "priority": "medium",
+      "title": "Tests passing for CLI Entry Point",
+      "block": "cli",
+      "source": "protocol",
+      "status": "open",
+      "createdAt": "2026-02-14T19:12:09.660Z"
+    },
+    {
+      "id": "cli--documented",
+      "priority": "low",
+      "title": "Docs written for CLI Entry Point",
+      "block": "cli",
+      "source": "protocol",
+      "status": "open",
+      "createdAt": "2026-02-14T19:12:09.661Z"
+    },
+    {
+      "id": "scanner--tested",
+      "priority": "medium",
+      "title": "Tests passing for Block Scanner",
+      "block": "scanner",
+      "source": "protocol",
+      "status": "open",
+      "createdAt": "2026-02-14T19:12:09.661Z"
+    },
+    {
+      "id": "archiver--tested",
+      "priority": "medium",
+      "title": "Tests passing for Version Archiver",
+      "block": "archiver",
+      "source": "protocol",
+      "status": "open",
+      "createdAt": "2026-02-14T19:12:09.661Z"
+    },
+    {
+      "id": "archiver--documented",
+      "priority": "low",
+      "title": "Docs written for Version Archiver",
+      "block": "archiver",
+      "source": "protocol",
+      "status": "open",
+      "createdAt": "2026-02-14T19:12:09.661Z"
+    },
+    {
+      "id": "tasks--tested",
+      "priority": "medium",
+      "title": "Tests passing for Task Generator",
+      "block": "tasks",
+      "source": "protocol",
+      "status": "open",
+      "createdAt": "2026-02-14T19:12:09.661Z"
+    },
+    {
+      "id": "tasks--documented",
+      "priority": "low",
+      "title": "Docs written for Task Generator",
+      "block": "tasks",
+      "source": "protocol",
+      "status": "open",
+      "createdAt": "2026-02-14T19:12:09.661Z"
+    },
+    {
+      "id": "types--tested",
+      "priority": "medium",
+      "title": "Tests passing for Type Definitions",
+      "block": "types",
+      "source": "protocol",
+      "status": "open",
+      "createdAt": "2026-02-14T19:12:09.661Z"
+    },
+    {
+      "id": "types--documented",
+      "priority": "low",
+      "title": "Docs written for Type Definitions",
+      "block": "types",
+      "source": "protocol",
+      "status": "open",
+      "createdAt": "2026-02-14T19:12:09.661Z"
+    },
+    {
+      "id": "visualization--tested",
+      "priority": "medium",
+      "title": "Tests passing for HTML Visualization",
+      "block": "visualization",
+      "source": "protocol",
+      "status": "open",
+      "createdAt": "2026-02-14T19:12:09.661Z"
+    },
+    {
+      "id": "visualization--documented",
+      "priority": "low",
+      "title": "Docs written for HTML Visualization",
+      "block": "visualization",
+      "source": "protocol",
+      "status": "open",
+      "createdAt": "2026-02-14T19:12:09.661Z"
+    }
+  ]
+}

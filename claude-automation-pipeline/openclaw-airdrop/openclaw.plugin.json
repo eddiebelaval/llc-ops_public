@@ -1,0 +1,10 @@
+{
+  "id": "airdrop",
+  "name": "AirDrop",
+  "description": "Control AirDrop on this Mac — toggle discoverability, send files, discover nearby devices.",
+  "configSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {}
+  }
+}

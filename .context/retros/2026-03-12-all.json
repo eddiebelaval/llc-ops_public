@@ -1,0 +1,40 @@
+{
+  "date": "2026-03-12",
+  "window": "7d",
+  "repo": "ALL",
+  "repos_active": 13,
+  "metrics": {
+    "commits": 110,
+    "commits_excl_merge": 78,
+    "prs_merged": 28,
+    "insertions": 198498,
+    "deletions": 28506,
+    "net_loc": 169992,
+    "test_loc": 665,
+    "test_ratio": 0.003,
+    "active_days": 6,
+    "sessions": 8,
+    "deep_sessions": 4,
+    "avg_session_minutes": 55,
+    "loc_per_session_hour": 5500,
+    "feat_pct": 0.37,
+    "fix_pct": 0.24,
+    "peak_hour": 13
+  },
+  "per_repo": {
+    "Homer": { "commits": 72, "prs": 28, "ins": 41031, "del": 10267 },
+    "squire": { "commits": 10, "prs": 2, "ins": 281160, "del": 3336 },
+    "tool-factory": { "commits": 3, "prs": 0, "ins": 15121, "del": 0 },
+    "research-lab": { "commits": 4, "prs": 0, "ins": 14304, "del": 1696 },
+    "consciousness-framework": { "commits": 1, "prs": 0, "ins": 5507, "del": 0 },
+    "consciousness": { "commits": 2, "prs": 0, "ins": 3387, "del": 4 },
+    "id8labs": { "commits": 5, "prs": 2, "ins": 245, "del": 0 },
+    "Development": { "commits": 3, "prs": 1, "ins": 9252, "del": 848 },
+    "claude-visual-toolkit": { "commits": 2, "prs": 0, "ins": 579, "del": 25 },
+    "claude-code-visualize": { "commits": 2, "prs": 1, "ins": 2, "del": 2 },
+    "triad": { "commits": 1, "prs": 0, "ins": 1622, "del": 0 },
+    "Speak2": { "commits": 2, "prs": 0, "ins": 6, "del": 0 }
+  },
+  "streak_days": 4,
+  "tweetable": "Week of Mar 6: 110 commits, 13 repos, 28 PRs, 72 on Homer alone, peak: 1pm ET | Streak: 4d"
+}

@@ -1,0 +1,21 @@
+{
+  "name": "codebase-map",
+  "version": "0.1.0",
+  "description": "Living architecture dashboard — heartbeat scanner for codebase state",
+  "type": "module",
+  "bin": {
+    "codebase-map": "./dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "scan": "tsx src/index.ts scan",
+    "init": "tsx src/index.ts init",
+    "status": "tsx src/index.ts status",
+    "tasks": "tsx src/index.ts tasks"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.0",
+    "tsx": "^4.19.0",
+    "@types/node": "^22.0.0"
+  }
+}

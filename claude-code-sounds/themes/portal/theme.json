@@ -1,0 +1,191 @@
+{
+  "name": "Portal",
+  "description": "Portal 2 sound effects — turrets, portal guns, GLaDOS alerts, and Aperture Science ambiance",
+  "author": "ryparker",
+  "sources": [
+    "github.com/sourcesounds/portal2"
+  ],
+  "sounds": {
+    "start": {
+      "description": "Session starting — test chamber initiated",
+      "files": [
+        {
+          "name": "portalgun-powerup.wav"
+        },
+        {
+          "name": "turret-activated.wav"
+        },
+        {
+          "name": "portal-open.wav"
+        },
+        {
+          "name": "test-chamber-start.wav"
+        }
+      ]
+    },
+    "end": {
+      "description": "Session over — test complete",
+      "files": [
+        {
+          "name": "portal-close.wav"
+        },
+        {
+          "name": "portal-close-alt.wav"
+        },
+        {
+          "name": "turret-goodbye.wav"
+        },
+        {
+          "name": "fizzler-shutdown.wav"
+        }
+      ]
+    },
+    "prompt": {
+      "description": "User submitted prompt — input received",
+      "files": [
+        {
+          "name": "button-positive.wav"
+        },
+        {
+          "name": "button-press.wav"
+        },
+        {
+          "name": "ui-click.wav"
+        },
+        {
+          "name": "portal-enter.wav"
+        }
+      ]
+    },
+    "stop": {
+      "description": "Done responding — task acknowledged",
+      "files": [
+        {
+          "name": "synth-positive.wav"
+        },
+        {
+          "name": "button-release.wav"
+        },
+        {
+          "name": "portal-exit.wav"
+        },
+        {
+          "name": "turret-done.wav"
+        }
+      ]
+    },
+    "permission": {
+      "description": "Permission prompt — turret alert",
+      "files": [
+        {
+          "name": "turret-whos-there.wav"
+        },
+        {
+          "name": "turret-alert.wav"
+        },
+        {
+          "name": "klaxon-alarm.wav"
+        },
+        {
+          "name": "turret-i-see-you.wav"
+        }
+      ]
+    },
+    "idle": {
+      "description": "Waiting for input — are you still there?",
+      "files": [
+        {
+          "name": "turret-are-you-still-there.wav"
+        },
+        {
+          "name": "turret-searching.wav"
+        },
+        {
+          "name": "turret-hello.wav"
+        },
+        {
+          "name": "turret-ping.wav"
+        }
+      ]
+    },
+    "subagent": {
+      "description": "Spawning subagent — deploying through portal",
+      "files": [
+        {
+          "name": "shoot-blue-portal.wav"
+        },
+        {
+          "name": "shoot-orange-portal.wav"
+        },
+        {
+          "name": "turret-deploy.wav"
+        },
+        {
+          "name": "core-attach.wav"
+        }
+      ]
+    },
+    "error": {
+      "description": "Tool failure — fizzled",
+      "files": [
+        {
+          "name": "turret-ow.wav"
+        },
+        {
+          "name": "portal-fizzle.wav"
+        },
+        {
+          "name": "emancipation-grill.wav"
+        },
+        {
+          "name": "synth-negative.wav"
+        },
+        {
+          "name": "invalid-surface.wav"
+        }
+      ]
+    },
+    "task-completed": {
+      "description": "Task finished — test chamber complete",
+      "files": [
+        {
+          "name": "test-chamber-complete.wav"
+        },
+        {
+          "name": "core-complete.wav"
+        },
+        {
+          "name": "announcer-post.wav"
+        }
+      ]
+    },
+    "compact": {
+      "description": "Context compaction — memory fizzling",
+      "files": [
+        {
+          "name": "fizzler-start.wav"
+        },
+        {
+          "name": "turret-retract.wav"
+        },
+        {
+          "name": "portal-whoosh-close.wav"
+        }
+      ]
+    },
+    "teammate-idle": {
+      "description": "Teammate went idle — turret lost target",
+      "files": [
+        {
+          "name": "turret-target-lost.wav"
+        },
+        {
+          "name": "turret-hellooo.wav"
+        },
+        {
+          "name": "turret-no-hard-feelings.wav"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "name": "airdrop",
+  "version": "0.1.0",
+  "description": "OpenClaw plugin to control AirDrop on macOS",
+  "type": "module",
+  "openclaw": {
+    "extensions": [
+      "./index.ts"
+    ]
+  }
+}

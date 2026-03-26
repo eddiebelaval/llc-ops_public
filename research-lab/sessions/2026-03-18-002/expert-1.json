@@ -1,0 +1,24 @@
+{
+  "executive": "Proptech VC Partner, $500M Fund",
+  "round": 2,
+  "overall_grade": "B-",
+  "previous_grade": "CCC",
+  "delta": "+1 full grade",
+  "confidence": 0.72,
+  "weighted_composite": 4.38,
+  "key_improvements": [
+    "Regulatory risk: 1.5 -> 6.5 (biggest single dimension jump)",
+    "Seller disclosure hard guard (Johnson v. Davis)",
+    "Attorney review mandatory and hardcoded",
+    "AI limitations disclosure structural",
+    "Human escalation architecture defined",
+    "Pricing honesty improved"
+  ],
+  "remaining_blockers": [
+    "CRITICAL: No attorney retained (architecture requires one but none engaged)",
+    "CRITICAL: Zero market validation (no interviews, no transactions)",
+    "HIGH: No E&O insurance",
+    "MEDIUM: 3 negotiation skills still have advisory language"
+  ],
+  "key_insight": "The team did exactly what good founders do after tough feedback. Regulatory risk moved from 1.5 to 6.5. But the system hardcodes attorneyReviewRequired=true with attorneyReviewCompleted=false and no mechanism to flip it. The architecture is now investable-quality — funding conditional on closing the gap between 'requires attorney' and 'has attorney.'"
+}
